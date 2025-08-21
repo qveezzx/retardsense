@@ -143,15 +143,15 @@ Now you should run `Retard-kernel.exe` to map the driver. If u see `[+] success`
 ### 🖼️Preview
 
 <p align="center">
-<img src="imgs/img.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img.png">
 </p>
 
 <p align="center">
-<img src="imgs/img1.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img1.png">
 </p>
 
 <p align="center">
-<img src="imgs/img2.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img2.png">
 </p>
 
 ---
