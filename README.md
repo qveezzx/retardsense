@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/tests-100/100-76B900?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/code quality-A+-76B900?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&logo=&logoColor=whit">
-  <img src="https://img.shields.io/badge/DragonBurn-v3.1.4.0-blue?style=for-the-badge&logo=&logoColor=whit">
+  <img src="https://img.shields.io/badge/retardsense-v3.1.4.0-blue?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/CS2-000000?style=for-the-badge&logo=counter-strike&logoColor=white">
   <img src="https://img.shields.io/badge/Kernel mode-28004D?style=for-the-badge&logo=webdriverio&logoColor=FFFFFF">
   <img src="https://img.shields.io/badge/offsets auto update-D06B57?style=for-the-badge&logo=databricks&logoColor=FFFFFF">
@@ -19,20 +19,12 @@
 
 ---
 
-### DragonBurn is one of the best CS2 kernel mode read only external cheats. It has ton of features, full customization and offsets auto update. Undetected by all anti-cheats except faceit.
+### RETARDsense is one of the best CS2 kernel-level read only external cheats, giving you best possible UD experience, at same time giving you ton of features, and auto updating offsets, all for free.
 
-⭐Please, star this repo if it was helpful⭐
 
----
+⚠️ NOTE THAT THIS CHEAT DOES NOT WORK WITH FACEIT AC ⚠️
 
-### 🌐Join our community
 
-<a href="https://discord.gg/5WcvdzFybD"><img src="https://invidget.switchblade.xyz/5WcvdzFybD"></a>
-
-> [!NOTE]  
-> If link preview didn't load, this is direct [link](https://discord.gg/5WcvdzFybD)
-
----
 
 ### 📋 Features
 
@@ -128,7 +120,7 @@ At the beginning, download latest release or compile project by yourself. You ne
 > [!NOTE]  
 > Kernel driver is close source for safety reasons, download it from release.
 
-Now you should run `DragonBurn-kernel.exe` to map the driver. If u see `[+] success` all fine, then just run `DragonBurn.exe` and gl hf.
+Now you should run `Retard-kernel.exe` to map the driver. If u see `[+] success` all fine, then just run `Retard.exe` and gl hf.
 
 ---
 
