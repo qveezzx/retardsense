@@ -111,6 +111,16 @@ Press END key to open/close menu.
 - Anti Record
 </details>
 
+<details>
+<summary>SkinChanger (WIP - not added yet, testing phrases)</summary>
+  
+- Knife Changer
+- Glove Changer
+- Agent Changer
+- Weapon Changer
+- Custom Models (USE AT YOUR OWN RISK)
+</details>
+
 ---
 
 ### 🛠️How to use
@@ -155,3 +165,5 @@ Now you should run `Retard-kernel.exe` to map the driver. If u see `[+] success`
 </p>
 
 ---
+
+big thanks to u/ByteCorum
