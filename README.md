@@ -111,16 +111,26 @@ Press END key to open/close menu.
 - Anti Record
 </details>
 
+<details>
+<summary>SkinChanger (WIP - not added yet, testing phrases)</summary>
+  
+- Knife Changer
+- Glove Changer
+- Agent Changer
+- Weapon Changer
+- Custom Models (USE AT YOUR OWN RISK)
+</details>
+
 ---
 
 ### 🛠️How to use
 
-At the beginning, download latest release or compile project by yourself. You need only 2 files `DragonBurn.exe` and `DragonBurn-kernel.exe`.
+At the beginning, download latest release. You need only 2 files `retardsense.exe` and `kernel.exe`.
 
 > [!NOTE]  
-> Kernel driver is close source for safety reasons, download it from release.
+> Kernel driver is close source for safety reasons, download it from release, it is completly safe.
 
-Now you should run `Retard-kernel.exe` to map the driver. If u see `[+] success` all fine, then just run `Retard.exe` and gl hf.
+Now you should run `kernel.exe` to map the driver. If You see `[+] success` all fine, then just run `retardsense.exe` and Everything should load up fine.
 
 ---
 
@@ -136,22 +146,24 @@ Now you should run `Retard-kernel.exe` to map the driver. If u see `[+] success`
 
 > Still getting: `[-] Failed to register and start service for the vulnerable driver`
 >
-> Solution: Turn off all Anti-Viruses and all Anti-Cheats client, usually it caused by faceit ac
+> Solution: Turn off all Anti-Viruses and all Anti-Cheats client, usually it is caused due to FaceIT AC
 
 ---
 
 ### 🖼️Preview
 
 <p align="center">
-<img src="imgs/img.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img.png">
 </p>
 
 <p align="center">
-<img src="imgs/img1.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img1.png">
 </p>
 
 <p align="center">
-<img src="imgs/img2.png">
+<img src="https://raw.githubusercontent.com/qveezzx/retardsense/refs/heads/stable/imgs/img2.png">
 </p>
 
 ---
+
+big thanks to u/ByteCorum
