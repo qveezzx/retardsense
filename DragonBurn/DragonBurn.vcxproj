@@ -92,7 +92,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <IncludePath>Libs\json</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <TargetName>DragonBurn</TargetName>
+    <TargetName>retardsense</TargetName>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

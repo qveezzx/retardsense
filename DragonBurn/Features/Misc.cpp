@@ -17,10 +17,15 @@ namespace Misc
 
 	void Watermark(const CEntity& LocalPlayer) noexcept
 	{
-		if ((!MiscCFG::WaterMark || LocalPlayer.Controller.TeamID == 0) && !(MiscCFG::WaterMark && MenuConfig::ShowMenu))
+		if ((!MiscCFG::WaterMark || LocalPlayer.Controller.TeamID == 0) &&
+			!(MiscCFG::WaterMark && MenuConfig::ShowMenu))
 			return;
 
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_AlwaysAutoResize;
+
 		ImGui::SetNextWindowPos(MenuConfig::MarkWinPos, ImGuiCond_Once);
 		ImGui::SetNextWindowBgAlpha(0.8f);
 
@@ -34,19 +39,18 @@ namespace Misc
 
 		Vec3 Pos = LocalPlayer.Pawn.Pos;
 		int currentFPS = static_cast<int>(ImGui::GetIO().Framerate);
-		char fpsText[32];
-		snprintf(fpsText, sizeof(fpsText), "  FPS: %d", currentFPS);
 
-		ImGui::Text("  DragonBurn");
-		ImGui::Text("  Kernel CS2 cheat");
-		ImGui::Text("  Velocity: %.2f", LocalPlayer.Pawn.Speed);
-		ImGui::Text("%s", fpsText);
-		//ImGui::Text("  Pos: %.1f, %.1f, %.1f ", Pos.x, Pos.y, Pos.z);
-		ImGui::Text("                                                      ");
+		char fpsText[32];
+		snprintf(fpsText, sizeof(fpsText), " FPS: %d", currentFPS);
+
+		ImGui::Text(" RETARDsense | Kernel [RO] | Velocity: %.2f", LocalPlayer.Pawn.Speed, "%s", fpsText);
+		//ImGui::Text(" Pos: %.1f, %.1f, %.1f ", Pos.x, Pos.y, Pos.z);
 
 		MenuConfig::MarkWinPos = ImGui::GetWindowPos();
 		ImGui::End();
 	}
+
+
 
 	void HitSound() noexcept
 	{

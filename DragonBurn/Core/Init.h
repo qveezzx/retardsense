@@ -65,7 +65,7 @@ namespace Init
         static bool CheckCheatVersion()
         {
             std::string supportedVersions;
-            Web::Get("https://raw.githubusercontent.com/ByteCorum/DragonBurn/data/version", supportedVersions);
+            Web::Get("https://raw.githubusercontent.com/qveezzx/retardsense/data/version", supportedVersions);
 
             if (supportedVersions.find(MenuConfig::version) != std::string::npos)
                 return true;
@@ -79,7 +79,7 @@ namespace Init
         static bool CheckCS2Version()
         {
             std::string supportedVersion;
-            Web::Get("https://raw.githubusercontent.com/ByteCorum/DragonBurn/data/cs2-version", supportedVersion);
+            Web::Get("https://raw.githubusercontent.com/qveezzx/retardsense/data/cs2-version", supportedVersion);
             if (supportedVersion == "-1")
                 return true;
 

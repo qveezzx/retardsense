@@ -210,12 +210,12 @@ namespace GUI
 		ImGuiWindowFlags Flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar;
 		ImGui::SetNextWindowPos({ (ImGui::GetIO().DisplaySize.x - MenuConfig::WCS.MainWinSize.x) / 2.0f, (ImGui::GetIO().DisplaySize.y - MenuConfig::WCS.MainWinSize.y) / 2.0f }, ImGuiCond_Once);
 		ImGui::SetNextWindowSize(MenuConfig::WCS.MainWinSize);
-		ImGui::Begin("DragonBurn", nullptr, Flags);
+		ImGui::Begin("RETARDsense", nullptr, Flags);
 		{
 			ImGui::SetCursorPos(LogoPos);
 			ImGui::Image(ImageID, LogoSize);
 			if (ImGui::IsItemClicked()) {
-				Gui.OpenWebpage("https://github.com/ByteCorum/DragonBurn");
+				Gui.OpenWebpage("https://github.com/qveezzx/retardsense");
 			}
 			ImGui::GetWindowDrawList()->AddRect(
 				ImVec2(MenuConfig::WCS.LogoPos.x + ImGui::GetWindowPos().x, MenuConfig::WCS.LogoPos.y + ImGui::GetWindowPos().y),
@@ -300,7 +300,7 @@ namespace GUI
 			
 			ImGui::BeginChild("Page", MenuConfig::WCS.ChildSize, false, ImGuiWindowFlags_NoScrollbar);
 			{
-				ImGui::Text("   DragonBurn");
+				ImGui::Text("   RETARDsense");
 				ImGui::Separator();
 				if (MenuConfig::WCS.MenuPage == 1)
 				{
@@ -637,11 +637,8 @@ namespace GUI
 					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 5.f);
 
 					ImGui::NewLine();
-					if (ImGui::Button("Source Code", { 125.f, 25.f }))
-						Gui.OpenWebpage("https://github.com/ByteCorum/DragonBurn");
-					ImGui::SameLine();
 					if (ImGui::Button("Contact Author", { 125.f, 25.f }))
-						Gui.OpenWebpage("https://discord.gg/5WcvdzFybD");
+						Gui.OpenWebpage("https://github.com/qveezzx");
 
 					if (ImGui::Button("Unhook", { 125.f, 25.f }))
 						Init::Client::Exit();

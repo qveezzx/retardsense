@@ -82,7 +82,7 @@ namespace SpecList
 
         ImGui::SetNextWindowPos(MenuConfig::SpecWinPos, ImGuiCond_Once);
         ImGui::SetNextWindowSize({ 150.0f, requiredHeight }, ImGuiCond_Always);
-        ImGui::GetStyle().WindowRounding = 8.0f;
+        ImGui::GetStyle().WindowRounding = 0.0f;
 
         std::string title = "Spectators";
         ImGui::Begin(title.c_str(), NULL, flags);

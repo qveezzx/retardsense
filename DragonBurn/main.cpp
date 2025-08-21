@@ -1,14 +1,5 @@
-﻿//______                            ______                  
-//|  _  \                           | ___ \                 
-//| | | |_ __ __ _  __ _  ___  _ __ | |_/ /_   _ _ __ _ __  
-//| | | | '__/ _` |/ _` |/ _ \| '_ \| ___ \ | | | '__| '_ \ 
-//| |/ /| | | (_| | (_| | (_) | | | | |_/ / |_| | |  | | | |
-//|___/ |_|  \__,_|\__, |\___/|_| |_\____/ \__,_|_|  |_| |_|
-//                  __/ |                                   
-//                 |___/                                    
-//
-//https://discord.gg/5WcvdzFybD
-//https://github.com/ByteCorum/DragonBurn
+﻿//many parts are from original author - ByteCorum      
+
 
 #include "Core/Cheats.h"
 #include "Offsets/Offsets.h"
@@ -32,7 +23,7 @@ void Cheat();
 int main()
 {
 
-//do not use uaicess for debugging/profiling (uiacess restarts the cheat)
+//make sure to not use uaicess for debugging/profiling (uiacess restarts the cheat)
 #ifndef DBDEBUG
 	DWORD err = PrepareForUIAccess();
 	if (err != ERROR_SUCCESS)
@@ -48,39 +39,37 @@ int main()
 void Cheat()
 {
 	ShowWindow(GetConsoleWindow(), SW_SHOWNORMAL);
-	SetConsoleTitle(L"DragonBurn");
+	SetConsoleTitle(L"RETARDsense | Loader - Driver");
 	//Init::Verify::RandTitle();
 
-	Log::Custom(R"LOGO(______                            ______                  
-|  _  \                           | ___ \                 
-| | | |_ __ __ _  __ _  ___  _ __ | |_/ /_   _ _ __ _ __  
-| | | | '__/ _` |/ _` |/ _ \| '_ \| ___ \ | | | '__| '_ \ 
-| |/ /| | | (_| | (_| | (_) | | | | |_/ / |_| | |  | | | |
-|___/ |_|  \__,_|\__, |\___/|_| |_\____/ \__,_|_|  |_| |_|
-                  __/ |                                   
-                 |___/                                    
+	Log::Custom(R"LOGO(_____________________________________ __________________                                      
+\______   \_   _____/\__    ___/  _  \\______   \______ \   ______ ____   ____   ______ ____  
+ |       _/|    __)_   |    | /  /_\  \|       _/|    |  \ /  ___// __ \ /    \ /  ___// __ \ 
+ |    |   \|        \  |    |/    |    \    |   \|    `   \\___ \\  ___/|   |  \\___ \\  ___/ 
+ |____|_  /_______  /  |____|\____|__  /____|_  /_______  /____  >\___  >___|  /____  >\___  >
+        \/        \/                 \/       \/        \/     \/     \/     \/     \/     \/ 
 
-https://discord.gg/5WcvdzFybD
-https://github.com/ByteCorum/DragonBurn
+https://github.com/qveezzx/retardsense
+
 
 
 )LOGO", 13);
 
 	if (!Init::Verify::CheckWindowVersion())
 	{
-		Log::Warning("Your os is unsupported, bugs may occurred", true);
+		Log::Warning("Your OS is not Oficially supported, bugs may occur..", true);
 	}
 
 #ifndef DBDEBUG
 	Log::Info("Checking cheat version");
-	try 
+	try
 	{
 		bool result = Init::Verify::CheckCheatVersion();
 		Log::PreviousLine();
 		if (result)
-			Log::Fine("Your cheat version is up to date and supported");
+			Log::Fine("Your cheat version is up to date and supported.");
 		else
-			Log::Error("Your cheat version is out of support");
+			Log::Error("Your cheat version is out of support, Please update ASAP.");
 	}
 	catch (const std::exception& error)
 	{
@@ -91,7 +80,7 @@ https://github.com/ByteCorum/DragonBurn
 #endif
 
 	Log::Info("Updating offsets");
-	try 
+	try
 	{
 		Offset.UpdateOffsets();
 		Log::PreviousLine();
@@ -100,19 +89,19 @@ https://github.com/ByteCorum/DragonBurn
 	catch (const std::exception& error)
 	{
 		Log::PreviousLine();
-		Log::Error(format("Error: {}",error.what()));
+		Log::Error(format("Error: {}", error.what()));
 	}
 
 	Log::Info("Connecting to kernel mode driver");
 	if (memoryManager.ConnectDriver(L"\\\\.\\DragonBurn-kmd"))
 	{
 		Log::PreviousLine();
-		Log::Fine("Successfully connected to kernel mode driver");
+		Log::Fine("Successfully write to kernel-level driver");
 	}
 	else
 	{
 		Log::PreviousLine();
-		Log::Error("Failed to connect to kernel mode driver");
+		Log::Error("Failed to write to kernel-level driver");
 	}
 
 	std::cout << '\n';
@@ -120,31 +109,31 @@ https://github.com/ByteCorum/DragonBurn
 	while (memoryManager.GetProcessID(L"cs2.exe") == 0)
 	{
 		Log::PreviousLine();
-		Log::Info("Waiting for CS2");
+		Log::Info("Waiting for CS2 process");
 		preStart = true;
 	}
 
 	if (preStart)
 	{
 		Log::PreviousLine();
-		Log::Info("Connecting to CS2(it may take some time)");
+		Log::Info("Connecting to CS2 process (it may take some time)");
 		Sleep(23000);
 	}
 
 	Log::PreviousLine();
-	Log::Fine("Connected to CS2");
-	Log::Info("Linking to CS2");
+	Log::Fine("Connected to CS2 proces..");
+	Log::Info("Linking to CS2..");
 
 #ifndef DBDEBUG
-	try 
+	try
 	{
-		if (!Init::Client::CheckCS2Version()) 
+		if (!Init::Client::CheckCS2Version())
 		{
 			Log::PreviousLine();
-			Log::Warning("Offsets are outdated, we'll update them asap. With current offsets, cheat may work unstable", true);
+			Log::Warning("Offsets are outdated, we'll update them ASAP. With current offsets, cheat may work unstable, or even get you VAC Banned eventually, USE AT YOUR OWN RISK.", true);
 		}
 	}
-	catch(const std::exception& error)
+	catch (const std::exception& error)
 	{
 		Log::PreviousLine();
 		Log::Error(format("Error: {}", error.what()));
@@ -154,7 +143,7 @@ https://github.com/ByteCorum/DragonBurn
 	if (!memoryManager.Attach(memoryManager.GetProcessID(L"cs2.exe")))
 	{
 		Log::PreviousLine();
-		Log::Error("Failed to attach to the process");
+		Log::Error("Failed to attach to the process.");
 	}
 
 	if (!gGame.InitAddress())
@@ -164,7 +153,7 @@ https://github.com/ByteCorum/DragonBurn
 	}
 
 	Log::PreviousLine();
-	Log::Fine("Linked to CS2");
+	Log::Fine("Linked to CS2 process.");
 
 	char documentsPath[MAX_PATH];
 	if (SHGetFolderPathA(NULL, CSIDL_PERSONAL, NULL, 0, documentsPath) != S_OK)
@@ -172,7 +161,7 @@ https://github.com/ByteCorum/DragonBurn
 
 	MenuConfig::path = documentsPath;
 	MenuConfig::docPath = documentsPath;
-	MenuConfig::path += "\\DragonBurn";
+	MenuConfig::path += "\\retard";
 
 	if (fs::exists(MenuConfig::docPath + "\\Adobe Software Data"))
 	{
@@ -198,7 +187,7 @@ https://github.com/ByteCorum/DragonBurn
 	if (fs::exists(MenuConfig::path + "\\default.cfg"))
 		MenuConfig::defaultConfig = true;
 
-	Log::Fine("DragonBurn loaded");
+	Log::Fine("RETARDsense loaded - Enjoy.");
 
 #ifndef DBDEBUG
 	Sleep(3000);

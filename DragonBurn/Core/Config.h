@@ -4,9 +4,9 @@
 
 namespace MenuConfig
 {
-	inline std::string name = "DragonBurn";
+	inline std::string name = "retard";
 	inline std::string version = "3.1.4.0";
-	inline std::string author = "ByteCorum";
+	inline std::string author = "qveezzx";
 
 	inline std::string path = "";
 	inline std::string docPath = "";
@@ -114,35 +114,35 @@ namespace ESPConfig
 	inline ImColor FilledColor2 = ImColor(59, 71, 148, 128);
 }
 
-//namespace CrosshairsCFG
-//{
-//	inline bool ShowCrossHair = false;
-//
-//	inline float CrossHairSize = 75;
-//	inline bool drawDot = true;
-//	inline bool drawCrossline = true;
-//	inline bool tStyle = false;
-//	inline bool drawCircle = false;
-//	inline bool drawOutLine = true;
-//	inline bool DynamicGap = false;
-//	inline bool TeamCheck = true;
-//
-//	inline int crosshairPreset = 0;
-//	inline int Gap = 8;
-//	inline int HorizontalLength = 6;
-//	inline int VerticalLength = 6;
-//	inline int Thickness = 1.0f;
-//	inline float DotSize = 1.0f;
-//	inline float CircleRadius = 3.f;
-//
-//	inline bool isAim = false;
-//	inline bool isJump = false;
-//
-//	inline ImColor CrossHairColor = ImColor(0, 255, 0, 255);
-//	inline ImColor TargetedColor = ImColor(255, 0, 0, 255);
-// 
-// inline bool TargetingCrosshairs = false;
-//}
+namespace CrosshairsCFG
+{
+	inline bool ShowCrossHair = false;
+
+	inline float CrossHairSize = 75;
+	inline bool drawDot = true;
+	inline bool drawCrossline = true;
+	inline bool tStyle = false;
+	inline bool drawCircle = false;
+	inline bool drawOutLine = true;
+	inline bool DynamicGap = false;
+	inline bool TeamCheck = true;
+
+	inline int crosshairPreset = 0;
+	inline int Gap = 8;
+	inline int HorizontalLength = 6;
+	inline int VerticalLength = 6;
+	inline int Thickness = 1.0f;
+	inline float DotSize = 1.0f;
+	inline float CircleRadius = 3.f;
+
+	inline bool isAim = false;
+	inline bool isJump = false;
+
+	inline ImColor CrossHairColor = ImColor(0, 255, 0, 255);
+	inline ImColor TargetedColor = ImColor(255, 0, 0, 255);
+ 
+    inline bool TargetingCrosshairs = false;
+}
 
 namespace RadarCFG
 {
@@ -167,7 +167,7 @@ namespace MiscCFG
 	inline int	HitSound = 0;
 	inline bool HitMarker = false;
 	inline bool bmbTimer = true;
-	//inline bool FastStop = false;
+	inline bool FastStop = false;
 	inline bool SpecList = false;
 	inline ImColor BombTimerCol = ImColor(131, 137, 150, 255);
 	inline bool ShowHeadShootLine = false;
