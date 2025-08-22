@@ -152,5 +152,5 @@ namespace Misc
 	void HitManager(CEntity&, int&) noexcept;
 	void BunnyHop(const CEntity&) noexcept;
 	void CleanTraces();
-	//void FastStop() noexcept;// junk
+	void FastStop() noexcept;// junk
 }

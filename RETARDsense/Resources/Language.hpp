@@ -113,6 +113,7 @@ namespace Text {
         inline std::string HitSound = "Hit Sound";
         inline std::string HitMerker = "Hit Markers";
         inline std::string bmbTimer = "Bomb Timer";
+        inline std::string FastStop = "Fast Stop";
         inline std::string SpecList = "Spec List";
         inline std::string Watermark = "Watermark";
         inline std::string TeamCheck = "Team Check";

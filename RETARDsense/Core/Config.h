@@ -29,6 +29,8 @@ namespace MenuConfig
 		ImVec2 ChildSize = ImVec2(540.f, 500.f);
 	} WCS;	// Window Component Settings
 
+	inline float WindowRounding = 0.0f;
+
 	inline bool defaultConfig = false;
 
 	// 0: Window 1: Collapse
@@ -46,7 +48,7 @@ namespace MenuConfig
 	inline bool RadarWinChengePos = false;
 	inline bool SpecWinChengePos = false;
 	inline bool BombWinChengePos = false;
-	inline int HotKey = VK_END;
+	inline int HotKey = VK_INSERT;
 }
 
 namespace LegitBotConfig

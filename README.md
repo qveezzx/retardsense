@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/build-passing-76B900?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/tests-100/100-76B900?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/code quality-A+-76B900?style=for-the-badge&logo=&logoColor=whit">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&logo=&logoColor=whit">
+  <img src="https://img.shields.io/badge/license-MIT/NC-blue?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/retardsense-v3.1.4.0-blue?style=for-the-badge&logo=&logoColor=whit">
   <img src="https://img.shields.io/badge/CS2-000000?style=for-the-badge&logo=counter-strike&logoColor=white">
   <img src="https://img.shields.io/badge/Kernel mode-28004D?style=for-the-badge&logo=webdriverio&logoColor=FFFFFF">

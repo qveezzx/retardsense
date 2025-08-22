@@ -210,6 +210,22 @@ namespace GUI
 		ImGuiWindowFlags Flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar;
 		ImGui::SetNextWindowPos({ (ImGui::GetIO().DisplaySize.x - MenuConfig::WCS.MainWinSize.x) / 2.0f, (ImGui::GetIO().DisplaySize.y - MenuConfig::WCS.MainWinSize.y) / 2.0f }, ImGuiCond_Once);
 		ImGui::SetNextWindowSize(MenuConfig::WCS.MainWinSize);
+
+
+		// Save original style
+		ImGuiStyle& style = ImGui::GetStyle();
+		float oldRounding = style.WindowRounding; // save old rounding
+		style.WindowRounding = 0.0f; // make window corners not rounded
+		// Make all frames (buttons, sliders, switches) have same dark background and no rounding
+		style.FrameRounding = 0.0f;
+		style.Colors[ImGuiCol_FrameBg] = ImVec4(22.f / 255.f, 22.f / 255.f, 22.f / 255.f, 1.f);
+		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(22.f / 255.f, 22.f / 255.f, 22.f / 255.f, 1.f);
+		style.Colors[ImGuiCol_FrameBgActive] = ImVec4(22.f / 255.f, 22.f / 255.f, 22.f / 255.f, 1.f);
+
+
+		// Set background color
+		ImVec4 oldBgColor = style.Colors[ImGuiCol_WindowBg];
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(22.0f / 255.0f, 22.0f / 255.0f, 22.0f / 255.0f, 1.0f);
 		ImGui::Begin("RETARDsense", nullptr, Flags);
 		{
 			ImGui::SetCursorPos(LogoPos);
@@ -305,6 +321,12 @@ namespace GUI
 				if (MenuConfig::WCS.MenuPage == 1)
 				{
 					ImGui::Columns(2, nullptr, false);
+
+					// Fill background for the current column
+					ImVec2 col_pos = ImGui::GetCursorScreenPos();
+					ImVec2 col_size = ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y);
+					ImGui::GetWindowDrawList()->AddRectFilled(col_pos, ImVec2(col_pos.x + col_size.x, col_pos.y + col_size.y), IM_COL32(22, 22, 22, 255));
+
 					ImGui::SetCursorPos(ImVec2(15.f, 24.f));
 					ImGui::GradientText("ESP");
 					float MinRounding = 0.f, MaxRouding = 5.f;
@@ -416,6 +438,12 @@ namespace GUI
 				if (MenuConfig::WCS.MenuPage == 0)
 				{
 					ImGui::Columns(2, nullptr, false);
+
+					// Fill background for the current column
+					ImVec2 col_pos = ImGui::GetCursorScreenPos();
+					ImVec2 col_size = ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y);
+					ImGui::GetWindowDrawList()->AddRectFilled(col_pos, ImVec2(col_pos.x + col_size.x, col_pos.y + col_size.y), IM_COL32(22, 22, 22, 255));
+
 					ImGui::SetCursorPos(ImVec2(15.f, 24.f));
 					ImGui::GradientText("Aimbot");
 
@@ -598,10 +626,16 @@ namespace GUI
 
 				if (MenuConfig::WCS.MenuPage == 2)
 				{
-					int FovMin = 60, FovMax = 140;
+					int FovMin = 60, FovMax = 180;
 					int NightMin = 0, NightMax = 150;
 					float FlashMin = 0.f, FlashMax = 255.f;
 					ImGui::Columns(2, nullptr, false);
+
+					// Fill background for the current column
+					ImVec2 col_pos = ImGui::GetCursorScreenPos();
+					ImVec2 col_size = ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y);
+					ImGui::GetWindowDrawList()->AddRectFilled(col_pos, ImVec2(col_pos.x + col_size.x, col_pos.y + col_size.y), IM_COL32(22, 22, 22, 255));
+
 					ImGui::SetCursorPos(ImVec2(15.f, 24.f));
 					ImGui::GradientText("Misc");
 					PutSwitch(Text::Misc::bmbTimer.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::bmbTimer, true, "###bmbTimerCol", reinterpret_cast<float*>(&MiscCFG::BombTimerCol));
@@ -616,10 +650,11 @@ namespace GUI
 					ImGui::Combo("###HitSounds", &MiscCFG::HitSound, "None\0Neverlose\0Skeet\0");
 					PutSwitch(Text::Misc::HitMerker.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::HitMarker);
 					PutSwitch(Text::Misc::BunnyHop.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::BunnyHop);
-					//PutSwitch(Text::Misc::FastStop.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::FastStop);
+					PutSwitch(Text::Misc::FastStop.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::FastStop);
 					PutSwitch(Text::Misc::SniperCrosshair.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::SniperCrosshair, true, "###sniperCrosshair", reinterpret_cast<float*>(&MiscCFG::SniperCrosshairColor));
 
 					ImGui::NextColumn();
+
 					ImGui::SetCursorPosY(24.f);
 					ImGui::GradientText("Global Settings");
 					ImGui::TextDisabled(Text::Misc::MenuKey.c_str());
@@ -660,6 +695,9 @@ namespace GUI
 				ImGui::NewLine();
 			} ImGui::EndChild();
 		} ImGui::End();
+		// Restore old style
+		style.WindowRounding = oldRounding;
+		style.Colors[ImGuiCol_WindowBg] = oldBgColor;
 
 		LoadDefaultConfig();
 	}

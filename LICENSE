@@ -1,6 +1,11 @@
+# License for This Project
+
+## Original MIT Code
+The code originally written by ByteCorum (© 2025) remains under the MIT License:
+
 MIT License
 
-Copyright (c) 2024 ByteCorum
+Copyright (c) 2025 ByteCorum
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +24,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## My Additions
+All code additions made by me (© 2025 qveezzx) are licensed under:
+
+Creative Commons Non-Commercial (CC BY-NC)  
+OR Proprietary (choose one)
+
+You may use, view, or modify my additions, but **they cannot be used for commercial purposes** (if CC BY-NC) or cannot be used, copied, or distributed at all without permission (if Proprietary).
+
+## Combined Use
+To use the project as a whole, you must comply with both licenses:
+- The original ByteCorum code under MIT
+- My additions under CC BY-NC (or Proprietary)
+- Eventually, use original code that is at: https://github.com/ByteCorum/DragonBurn

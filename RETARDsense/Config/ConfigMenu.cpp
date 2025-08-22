@@ -14,6 +14,12 @@ namespace ConfigMenu {
 	void RenderCFGmenu()
 	{
 		ImGui::Columns(2, nullptr, false);
+
+		// Fill background for the current column
+		ImVec2 col_pos = ImGui::GetCursorScreenPos();
+		ImVec2 col_size = ImVec2(ImGui::GetColumnWidth(), ImGui::GetContentRegionAvail().y);
+		ImGui::GetWindowDrawList()->AddRectFilled(col_pos, ImVec2(col_pos.x + col_size.x, col_pos.y + col_size.y), IM_COL32(22, 22, 22, 255));
+
 		static char configNameBuffer[128] = "NewConfig";
 		static char configAuthorBuffer[128] = "Author";
 		static int selectedConfig = -1;
@@ -105,6 +111,7 @@ namespace ConfigMenu {
 		}
 
 		ImGui::NextColumn();
+
 		CurrentCursorX = ImGui::GetCursorPosX();
 		ImGui::SetCursorPos(ImVec2(CurrentCursorX + CursorX, 24.f));
 		ImGui::GradientText(Text::Config::SeparateLine.c_str());
