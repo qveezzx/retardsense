@@ -12,6 +12,28 @@
 #include <KnownFolders.h>
 #include <ShlObj.h>
 #include <format>
+#include <vector>
+#include <random>
+#include <windows.h>
+#include <string>
+
+
+std::vector<std::string> processNames = { "update", "loader", "helper", "service" };
+
+
+std::vector<std::string> exeNames = {
+	"ASUSupdateSvc.exe",
+	"RuntineBrokerSvc.exe",
+	"FaceITAC.exe",
+	"TorBrowserSvc.exe"
+};
+
+
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<> dist(0, exeNames.size() - 1);
+std::string newName = exeNames[dist(gen)];
+
 
 using namespace std;
 
@@ -22,8 +44,7 @@ void Cheat();
 
 int main()
 {
-
-//make sure to not use uaicess for debugging/profiling (uiacess restarts the cheat)
+	// Make sure not to use UIAccess for debugging/profiling (UIAccess restarts the cheat)
 #ifndef DBDEBUG
 	DWORD err = PrepareForUIAccess();
 	if (err != ERROR_SUCCESS)
@@ -33,7 +54,50 @@ int main()
 	}
 #endif
 
-	Cheat();
+	Cheat(); // run your cheat
+
+	// Array of possible executable names
+	std::vector<std::string> exeNames = { "update.exe", "loader.exe", "helper.exe", "service.exe" };
+
+	// Pick a random name
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(0, exeNames.size() - 1);
+	std::string newExeName = exeNames[dist(gen)];
+
+	// Schedule renaming after exit
+	RenameSelf(newExeName);
+
+	return 0;
+}
+
+void RandomizeProcessName()
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(0, processNames.size() - 1);
+	std::string name = processNames[dist(gen)];
+
+	SetConsoleTitleA(name.c_str());
+}
+
+void RenameSelf(const std::string& newName)
+{
+	char path[MAX_PATH];
+	GetModuleFileNameA(NULL, path, MAX_PATH); // current exe path
+	std::string currentPath = path;
+
+	std::string cmd = "cmd /C ping 127.0.0.1 -n 2 > NUL & rename \"" + currentPath + "\" \"" + newName + "\"";
+
+	// Run cmd in a hidden process
+	STARTUPINFOA si = { sizeof(si) };
+	PROCESS_INFORMATION pi;
+	si.dwFlags = STARTF_USESHOWWINDOW;
+	si.wShowWindow = SW_HIDE;
+
+	CreateProcessA(NULL, cmd.data(), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
 }
 
 void Cheat()
@@ -47,7 +111,7 @@ void Cheat()
  |       _/|    __)_   |    | /  /_\  \|       _/|    |  \ /  ___// __ \ /    \ /  ___// __ \ 
  |    |   \|        \  |    |/    |    \    |   \|    `   \\___ \\  ___/|   |  \\___ \\  ___/ 
  |____|_  /_______  /  |____|\____|__  /____|_  /_______  /____  >\___  >___|  /____  >\___  >
-        \/        \/                 \/       \/        \/     \/     \/     \/     \/     \/   v1.0.0
+        \/        \/                 \/       \/        \/     \/     \/     \/     \/     \/   v2.0.1
 
 https://github.com/qveezzx/retardsense
 
