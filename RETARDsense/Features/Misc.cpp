@@ -3,6 +3,9 @@
 #include <iostream>
 #include <Shellapi.h>
 #include <filesystem>
+#include <Windows.h>
+#include <TlHelp32.h>
+#include <Psapi.h>
 namespace fs = std::filesystem;
 
 namespace Misc
@@ -14,6 +17,36 @@ namespace Misc
 	HitMarker hitMarker(0, std::chrono::steady_clock::now());
 	const float HitMarker::SIZE = 10.f;
 	const float HitMarker::GAP = 3.f;
+	
+	// Helper to get CS2 FPS
+	float GetCS2FPS()
+	{
+		DWORD pid = 0;
+		PROCESSENTRY32 entry;
+		entry.dwSize = sizeof(PROCESSENTRY32);
+
+		HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (Process32First(snapshot, &entry))
+		{
+			do
+			{
+				if (_wcsicmp(entry.szExeFile, L"cs2.exe") == 0 || _wcsicmp(entry.szExeFile, L"Counter-Strike 2.exe") == 0)
+				{
+					pid = entry.th32ProcessID;
+					break;
+				}
+			} while (Process32Next(snapshot, &entry));
+		}
+		CloseHandle(snapshot);
+
+		if (pid == 0)
+			return 0.0f;
+
+		// Get FPS via perf counters / approximate via frame times if possible
+		// Here just returning ImGui framerate as placeholder since CS2 FPS reading is complex
+		// Proper implementation would require hooking into CS2 or reading engine memory
+		return ImGui::GetIO().Framerate;
+	}
 
 	void Watermark(const CEntity& LocalPlayer) noexcept
 	{
@@ -21,88 +54,47 @@ namespace Misc
 			!(MiscCFG::WaterMark && MenuConfig::ShowMenu))
 			return;
 
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse |
-			ImGuiWindowFlags_NoTitleBar |
-			ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_AlwaysAutoResize |
-			ImGuiWindowFlags_NoScrollbar;
+		ImGuiIO& io = ImGui::GetIO();
 
-		// Reduced default position size
-		ImVec2 defaultWinPos = MenuConfig::MarkWinPos;
-
-		ImGui::SetNextWindowPos(defaultWinPos, ImGuiCond_Once);
-
-		// Force solid dark background
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(20, 20, 20, 255));
-
-		// Set smaller font
-		ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]); // Ensure you have loaded a smaller font here
-
-		ImGui::Begin("Watermark", nullptr, windowFlags);
-
-		if (MenuConfig::MarkWinChengePos)
-		{
-			ImGui::SetWindowPos("Watermark", MenuConfig::MarkWinPos);
-			MenuConfig::MarkWinChengePos = false;
-		}
-
-		Vec3 Pos = LocalPlayer.Pawn.Pos;
-		int currentFPS = static_cast<int>(ImGui::GetIO().Framerate);
-
+		// Get CS2 FPS (placeholder)
+		float cs2FPS = GetCS2FPS();
 		char fpsText[32];
-		snprintf(fpsText, sizeof(fpsText), " | FPS: %d", currentFPS);
+		snprintf(fpsText, sizeof(fpsText), " | FPS: %d", static_cast<int>(cs2FPS));
 
-		// ---- Rainbow gradient bar at top ----
-		ImVec2 winPos = ImGui::GetWindowPos();
-		ImVec2 winSize = ImGui::GetWindowSize();
-		ImDrawList* drawList = ImGui::GetWindowDrawList();
+		// Construct full text
+		char displayText[128];
+		snprintf(displayText, sizeof(displayText), " RETARDsense | Velocity: %.2f%s", LocalPlayer.Pawn.Speed, fpsText);
 
-		float barHeight = 2.0f; // slightly smaller
-		for (float i = 0; i < winSize.x; i += 1.0f)
+		// Calculate text size dynamically
+		ImVec2 textSize = ImGui::CalcTextSize(displayText);
+		float padding = 8.0f;
+
+		// Fixed top-right position, dynamically adjusted for text width
+		ImVec2 pos(io.DisplaySize.x - textSize.x - padding * 2, padding);
+		ImVec2 size(textSize.x + padding * 2, textSize.y + padding * 2);
+
+		ImDrawList* drawList = ImGui::GetBackgroundDrawList(); // draw on background, not a window
+
+		// Slightly less transparent dark background, no rounded corners
+		drawList->AddRectFilled(pos, ImVec2(pos.x + size.x, pos.y + size.y), IM_COL32(20, 20, 20, 220), 0.0f);
+
+		// Rainbow gradient bar at top
+		float barHeight = 2.0f;
+		for (float i = 0; i < size.x; i += 1.0f)
 		{
-			float hue = fmodf((i / winSize.x) + (ImGui::GetTime() * 0.1f), 1.0f);
+			float hue = fmodf((i / size.x) + (ImGui::GetTime() * 0.1f), 1.0f);
 			ImU32 col = ImColor::HSV(hue, 1.0f, 1.0f);
 			drawList->AddLine(
-				ImVec2(winPos.x + i, winPos.y),
-				ImVec2(winPos.x + i, winPos.y + barHeight),
+				ImVec2(pos.x + i, pos.y),
+				ImVec2(pos.x + i, pos.y + barHeight),
 				col
 			);
 		}
 
-		// ---- Center text vertically (below rainbow bar) ----
-		float textHeight = ImGui::GetTextLineHeight();
-		float availHeight = winSize.y - barHeight;
-		float padding = (availHeight - textHeight) * 0.5f;
-
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + padding);
-
-		// ---- White text ----
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 255, 255));
-		ImGui::Text(" RETARDsense | Velocity: %.2f%s", LocalPlayer.Pawn.Speed, fpsText);
-		ImGui::PopStyleColor();
-
-		// ---- Dynamically center resize ----
-		ImVec2 textSize = ImGui::CalcTextSize(" RETARDsense | Velocity: 000.00 | FPS: 000");
-		ImVec2 newSize = ImVec2(textSize.x + 16.0f, textSize.y + 16.0f); // Add small padding
-
-		// Compute current center
-		ImVec2 centerPos;
-		centerPos.x = MenuConfig::MarkWinPos.x + winSize.x * 0.5f;
-		centerPos.y = MenuConfig::MarkWinPos.y + winSize.y * 0.5f;
-
-		// Set new top-left so window resizes from center
-		MenuConfig::MarkWinPos.x = centerPos.x - newSize.x * 0.5f;
-		MenuConfig::MarkWinPos.y = centerPos.y - newSize.y * 0.5f;
-
-		ImGui::SetWindowSize(newSize);
-
-
-		ImGui::End();
-		ImGui::PopStyleColor();
-		ImGui::PopFont();
+		// Draw text
+		ImVec2 textPos = ImVec2(pos.x + padding, pos.y + barHeight + ((size.y - barHeight - textSize.y) * 0.5f));
+		drawList->AddText(textPos, IM_COL32(255, 255, 255, 255), displayText);
 	}
-
-
 
 
 
@@ -161,31 +153,38 @@ namespace Misc
 		if (!MiscCFG::BunnyHop || MenuConfig::ShowMenu || Local.Controller.TeamID == 0)
 			return;
 
-		static DWORD lastJump = 0;
+		HWND hwnd_cs2 = FindWindowA(NULL, "Counter-Strike 2");
+		if (hwnd_cs2 == NULL) {
+			hwnd_cs2 = FindWindowA(NULL, "Counter-Strike 2");
+		}
+
+		//int JumpBtn;
+		//if (!memoryManager.ReadMemory(gGame.GetJumpBtnAddress(), JumpBtn))
+		//	return;
+
+		bool spacePressed = GetAsyncKeyState(VK_SPACE);
+		//bool isInAir = AirCheck(Local);
+
+		static DWORD lastJumped = GetTickCount64();
 		DWORD currentTick = GetTickCount64();
 
-		// Only trigger if space is pressed
-		if (GetAsyncKeyState(VK_SPACE) & 0x8000) // high bit = key down
+		if (spacePressed /*&& isInAir*/)
 		{
-			// Simple cooldown to prevent missed jumps
-			if (currentTick - lastJump >= MenuConfig::BunnyHopDelay)
+			if (currentTick - lastJumped >= MenuConfig::BunnyHopDelay)
 			{
-				// Simulate fast key press with SendInput
-				INPUT input = {};
-				input.type = INPUT_KEYBOARD;
-				input.ki.wVk = VK_SPACE;
-
-				// Key down
-				input.ki.dwFlags = 0;
-				SendInput(1, &input, sizeof(INPUT));
-
-				// Key up immediately
-				input.ki.dwFlags = KEYEVENTF_KEYUP;
-				SendInput(1, &input, sizeof(INPUT));
-
-				lastJump = currentTick;
+				SendMessage(hwnd_cs2, WM_KEYUP, VK_SPACE, 0);
+				SendMessage(hwnd_cs2, WM_KEYDOWN, VK_SPACE, 0);
+				lastJumped = currentTick;
 			}
 		}
+		//else if (spacePressed /*&& !isInAir*/)
+		//{
+		//	SendMessage(hwnd_cs2, WM_KEYUP, VK_SPACE, 0);
+		//}
+		//else if (!spacePressed)
+		//{
+		//	SendMessage(hwnd_cs2, WM_KEYUP, VK_SPACE, 0);
+		//}
 	}
 
 

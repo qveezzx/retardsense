@@ -93,6 +93,29 @@ void TriggerBot::Run(const CEntity& LocalEntity)
             ExecuteShot();
         }
     }
+
+    // Draw "TRIGGER" text under crosshair when holding hotkey
+    if (GetAsyncKeyState(TriggerBot::HotKey) & 0x8000)
+    {
+        ImDrawList* drawList = ImGui::GetForegroundDrawList();
+        const ImGuiIO& io = ImGui::GetIO();
+
+        // Screen center (component-wise)
+        ImVec2 screenCenter(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f);
+
+        const char* text = "TRIGGER";
+
+        // Position a bit below the crosshair
+        ImVec2 textPos(screenCenter.x, screenCenter.y + 20.0f);
+
+        // Center horizontally
+        ImVec2 textSize = ImGui::CalcTextSize(text);
+        textPos.x -= textSize.x * 0.5f;
+
+        // Shadow + main text
+        drawList->AddText(ImVec2(textPos.x + 1.0f, textPos.y + 1.0f), IM_COL32(0, 0, 0, 200), text);
+        drawList->AddText(textPos, IM_COL32(255, 0, 0, 255), text);
+    }
 }
 
 bool TriggerBot::CanTrigger(const CEntity& LocalEntity, const CEntity& TargetEntity)
@@ -119,7 +142,7 @@ bool TriggerBot::CanTrigger(const CEntity& LocalEntity, const CEntity& TargetEnt
         return false;
 
     //check is velocity == 0
-    if(StopedOnly && LocalEntity.Pawn.Speed != 0)
+    if (StopedOnly && LocalEntity.Pawn.Speed != 0)
         return false;
 
     // Check flash duration

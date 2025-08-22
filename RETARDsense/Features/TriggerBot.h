@@ -7,7 +7,7 @@
 
 namespace TriggerBot
 {
-    // Configuration
+	// Configuration
 	inline int TriggerDelay = 10; // ms
 	inline int ShotDuration = 400; // ms
 	inline bool ScopeOnly = true;
@@ -15,25 +15,25 @@ namespace TriggerBot
 	inline bool StopedOnly = false;
 	inline bool VisibleCheck = true;
 
-    // Input configuration
-    inline int HotKey = VK_XBUTTON2;
+	// Input configuration
+	inline int HotKey = VK_XBUTTON2;
 
-    // Timing variables
+	// Timing variables
 	inline std::chrono::time_point<std::chrono::system_clock> g_LastShotTime;
-    inline std::chrono::time_point<std::chrono::system_clock> g_TargetFoundTime;
+	inline std::chrono::time_point<std::chrono::system_clock> g_TargetFoundTime;
 	inline bool g_HasValidTarget = false;
 	inline bool g_CanShoot = false;
 
-    // Main functions
+	// Main functions
 	void Run(const CEntity& LocalEntity);
 
-    // Validation functions
-    bool CanTrigger(const CEntity& LocalEntity, const CEntity& TargetEntity);
+	// Validation functions
+	bool CanTrigger(const CEntity& LocalEntity, const CEntity& TargetEntity);
 
-    // Execution functions
+	// Execution functions
 	void ExecuteShot();
 
-    // Utility functions
+	// Utility functions
 	std::string GetWeapon(const CEntity& LocalEntity);
 	bool CheckWeapon(const std::string& WeaponName);
 	bool CheckScopeWeapon(const std::string& WeaponName);

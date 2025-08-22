@@ -32,7 +32,7 @@ namespace OSImGui
         ImFontConfig arialConfig;
         arialConfig.FontDataOwnedByAtlas = false;
 
-        ImFont* arialFont = fontAtlas->AddFontFromMemoryTTF((void*)MainFont, sizeof(MainFont), 20.0f, &arialConfig, fontAtlas->GetGlyphRangesDefault());
+        ImFont* arialFont = fontAtlas->AddFontFromMemoryTTF((void*)MainFont, sizeof(MainFont), 16.0f, &arialConfig, fontAtlas->GetGlyphRangesDefault());
         
         ImFontConfig iconConfig;
         iconConfig.MergeMode = true;
