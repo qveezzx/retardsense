@@ -42,6 +42,25 @@ string fileName;
 
 void Cheat();
 
+void RenameSelf(const std::string& newName)
+{
+	char path[MAX_PATH];
+	GetModuleFileNameA(NULL, path, MAX_PATH); // current exe path
+	std::string currentPath = path;
+
+	std::string cmd = "cmd /C ping 127.0.0.1 -n 2 > NUL & rename \"" + currentPath + "\" \"" + newName + "\"";
+
+	// Run cmd in a hidden process
+	STARTUPINFOA si = { sizeof(si) };
+	PROCESS_INFORMATION pi;
+	si.dwFlags = STARTF_USESHOWWINDOW;
+	si.wShowWindow = SW_HIDE;
+
+	CreateProcessA(NULL, cmd.data(), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
+}
+
 int main()
 {
 	// Make sure not to use UIAccess for debugging/profiling (UIAccess restarts the cheat)
@@ -79,25 +98,6 @@ void RandomizeProcessName()
 	std::string name = processNames[dist(gen)];
 
 	SetConsoleTitleA(name.c_str());
-}
-
-void RenameSelf(const std::string& newName)
-{
-	char path[MAX_PATH];
-	GetModuleFileNameA(NULL, path, MAX_PATH); // current exe path
-	std::string currentPath = path;
-
-	std::string cmd = "cmd /C ping 127.0.0.1 -n 2 > NUL & rename \"" + currentPath + "\" \"" + newName + "\"";
-
-	// Run cmd in a hidden process
-	STARTUPINFOA si = { sizeof(si) };
-	PROCESS_INFORMATION pi;
-	si.dwFlags = STARTF_USESHOWWINDOW;
-	si.wShowWindow = SW_HIDE;
-
-	CreateProcessA(NULL, cmd.data(), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
 }
 
 void Cheat()
