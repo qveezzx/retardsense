@@ -19,8 +19,7 @@
 
 ---
 
--Original MIT code remains MIT
--My additions are under Apache 2.0 (or proprietary)
+Original MIT code remains MIT, while My additions are under Apache 2.0 (or proprietary)
 
 ### RETARDsense is one of the best CS2 kernel-level read only external cheats, giving you best possible UD experience, at same time giving you ton of features, and auto updating offsets, all for free.
 
